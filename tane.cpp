@@ -101,15 +101,42 @@ vector<vector<dependency>> prefixBlocks() {
     return blocks;
 }
 
-void strippedProduct(dependency X, dependency Y) {
+set<set<int>> strippedProduct(dependency X, dependency Y) {
+    unordered_map<int, int> T;
+    unordered_map<int, set<int>> S;
+    set<set<int>> newPI;
+    int i = 1;                                    //从1开始？还是从0开始？？
     for(auto& n: piMap[X.left]) {
         for(auto& t: n){
-
+            T[t] = i;
+        }
+        i++;
+    }
+    i = 1;
+    for(auto& m: piMap[Y.left]) {
+        for(auto& t: m) {
+            if (T.find(t) != T.end()) {
+                if (S.count(T[t]) == 0) {
+                    set<int> arr;
+                    S.insert(make_pair(T[t], arr));
+                }
+                S[T[t]].insert(t);
+            }
+        }
+        for (auto& t: m) {
+            if (S.count(T[t]) >= 2) {
+                newPI.insert(S[T[t]]);
+                S[T[t]].clear();
+            }
         }
     }
-    for(auto& m: piMap[Y.left]) {
-
+    i = 1;
+    for(auto& k: newPI) {
+        for(auto& t: k) {
+            T[t] = NULL;
+        }
     }
+    return newPI
 }
 
 void generateNextLevel() {
@@ -137,10 +164,13 @@ void generateNextLevel() {
             newLevel.push_back(tmpDep);
         }
         if (it != curLevel.end()) {
-            strippedProduct(K[0],K[1]);
             for (auto &dep :newLevel) {
                 level[(currentLevel + 1) % 2].push_back(dep);
             }
+            set<int> temp;
+            temp = (*newLevel.begin()).left;
+            temp.insert((*newLevel.begin()).right);
+            piMap[temp] = strippedProduct(K[0],K[1]);
         }
     }
 }
