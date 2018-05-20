@@ -144,3 +144,20 @@ void generateNextLevel() {
         }
     }
 }
+
+
+set<int> findRHSCandidate(set<int> attrW) {
+    set<int> RHSCandidate;
+    set<int>::iterator it;
+    for (int i = 0; i < totalAttr; i++) {
+        if (attrW.find(i) != attrW.end()) {
+            attrW.erase(i);
+            if (judgeRelation(attrW, i)) {
+                RHSCandidate.insert(i);
+            }
+            attrW.insert(i);
+        } else {
+            RHSCandidate.insert(i);
+        }
+    }
+}
