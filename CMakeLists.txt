@@ -4,4 +4,4 @@ project(FD)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(FD
-        tane_new2.cpp)
+        tane.cpp)
