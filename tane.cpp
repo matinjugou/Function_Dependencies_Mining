@@ -18,6 +18,7 @@ vector<vector<int>> S(110000);
 int RHS[35000];
 vector<vector<int>> partitions[35000];
 bool computed[35000];
+unordered_map<string, vector<int>> rowSet;
 
 int reverseInt(int a) {
     int ans = 0;
@@ -85,7 +86,7 @@ void scanData(char* filename) {
     }
     infile.close();
     N_ATTR = data[0].size();
-    N_DATA = data.size();
+    N_DATA = data.size() - 1;
 }
 
 void printDependency() {
@@ -259,7 +260,6 @@ void init() {
     for (int i = 0; i < 110000; i++) {
         T[i] = -1;
     }
-    unordered_map<string, vector<int>> rowSet;
     for (int A = 0; A < N_ATTR; A++) {
         rowSet.clear();
         for (int i = 0; i < N_DATA; i++) {
