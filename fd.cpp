@@ -75,6 +75,10 @@ set<int> findRHSCandidate(set<int> attrW) {
 
 int main(int argc, char** argv) {
     cout<<"Hello World "<<argv[1]<<endl;
+    set<int> a = {1, 2, 3, 4};
+    set<int> b = {1, 2, 3, 4};
+    cout << (a == b);
+    return 0;
     scanData(argv[1]);
     return 0;
 }

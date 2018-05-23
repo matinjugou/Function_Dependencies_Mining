@@ -175,7 +175,7 @@ void generateNextLevel() {
     }
 }
 
-
+/*
 set<int> findRHSCandidate(set<int> attrW) {
     set<int> RHSCandidate;
     set<int>::iterator it;
@@ -191,3 +191,4 @@ set<int> findRHSCandidate(set<int> attrW) {
         }
     }
 }
+*/
