@@ -89,19 +89,24 @@ void scanData(char* filename) {
     N_DATA = data.size() - 1;
 }
 
-void printDependency() {
+void printDependency(char* filename) {
+    ofstream out;
+    out.open(filename, ios::out|ios::binary);
     for (auto &pair : ans) {
         int left = pair.ele.first;
         int right = pair.ele.second;
         for (int A = 0; A < N_ATTR; A++) {
             if ((1 << A) & left) {
-                cout << A + 1 << " ";
+                //cout << A + 1 << " ";
+                out << A + 1 << " ";
             }
         }
         for (int A = 0; A < N_ATTR; A++) if ((1 << A) & right) {
-                cout << "-> " << A + 1 << endl;
+                //cout << "-> " << A + 1 << endl;
+                out << "-> " << A + 1 << endl;
             }
     }
+    out.close();
 }
 
 bool judgePrefix(int A, int B) {
@@ -273,6 +278,10 @@ void init() {
 }
 
 int main(int argc, char** argv) {
+    if (argc < 3) {
+        cout << "Need two parameters, input filename and output filename" << endl;
+        return 0;
+    }
     scanData(argv[1]);
     init();
     int l = 1;
@@ -282,6 +291,6 @@ int main(int argc, char** argv) {
         generateNextLevel(l);
         l += 1;
     }
-    printDependency();
+    printDependency(argv[2]);
     return 0;
 }
