@@ -18,7 +18,7 @@ vector<vector<int>> S(110000);
 int RHS[35000];
 vector<vector<int>> partitions[35000];
 bool computed[35000];
-unordered_map<string, vector<int>> rowSet;
+unordered_map<string, vector<int>> rowSet(200);
 
 int reverseInt(int a) {
     int ans = 0;
